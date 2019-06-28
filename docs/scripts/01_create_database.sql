@@ -1,3 +1,4 @@
-CREATE SCHEMA `demoalgorith` ;
-CREATE USER 'demouser'@'%' IDENTIFIED BY 'carm3l1t4s';
-GRANT ALL ON demoalgorith.* TO 'demouser'@'%';
+CREATE SCHEMA `ednamodasdb` ;
+--CREATE USER 'edna'@'%' IDENTIFIED BY 'Galileo1998';
+CREATE USER 'edna'@'%' IDENTIFIED WITH mysql_native_password BY 'Galileo1998';
+GRANT ALL ON ednamodasdb.* TO 'edna'@'%';
