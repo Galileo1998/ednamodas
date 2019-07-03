@@ -10,5 +10,5 @@ CREATE TABLE `application` (
   `applicationPhone` VARCHAR(45) NULL,
   `applicationAddress` VARCHAR(45) NULL,
   `applicationCompany` VARCHAR(45) NULL,
-  `applicationFrameWork` VARCHAR(45) NULL;
+  `applicationFrameWork` VARCHAR(45) NULL,
   PRIMARY KEY (`idapplication`));
