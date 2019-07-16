@@ -12,11 +12,11 @@
  *
  * @link http://url.com
  */
-$server = "127.0.0.1";
-$user = "edna";
-$pswd = "Galileo1998";
-$database = "ednamodasdb";
-$port = "3306";
+ $server = "127.0.0.1";
+ $user = "edna";
+ $pswd = "Galileo1998";
+ $database = "ednamodasdb";
+ $port = "3306";
 
 $emailHost = 'email-smtp.us-west-2.amazonaws.com';
 $smtpUser = 'amazonwebuserkey';

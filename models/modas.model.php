@@ -32,7 +32,7 @@ FROM `ednamodasdb`.`modas`;
 *@return Array
 */
 
-    function obtenerModas()
+  /*  function obtenerModas()
     {
       $sqlstr="SELECT `modas`.`idmodas`,
           `modas`.`dscmoda`,
@@ -43,19 +43,130 @@ FROM `ednamodasdb`.`modas`;
       $modas= array();
       $modas=obtenerRegistros($sqlstr);
       return $modas;
-    }
+    }*/
+    /**
+     * Obtiene una moda por ID
+     *
+     * @param number $id identificador de la moda
+     *
+     * @return void
+     */
+    function obtenerModas()
+    {
+        $sqlstr = "select `modas`.`idmoda`,
+            `modas`.`dscmoda`,
+            `modas`.`prcmoda`,
+            `modas`.`ivamoda`,
+            `modas`.`estmoda`
+        from `ednamodasdb`.`modas`";
 
+        $juguetes = array();
+        $juguetes = obtenerRegistros($sqlstr);
+        return $juguetes;
+    }
+    /**
+     * Obtiene una moda por ID
+     *
+     * @param number $id identificador de la moda
+     *
+     * @return void
+     */
     function obtenerModaPorId($id)
     {
-      $sqlstr="SELECT `modas`.`idmodas`,
+      $sqlstr="select `modas`.`idmoda`,
           `modas`.`dscmoda`,
           `modas`.`prcmoda`,
           `modas`.`ivamoda`,
           `modas`.`estmoda`
-      FROM `ednamodasdb`.`modas` where idmoda=%d";
+      from `ednamodasdb`.`modas` where idmoda=%d";
       $modas= array();
-      $modas=obtenerRegistros(sprintf($sqlstr, $id));
+      $modas=obtenerUnRegistro(sprintf($sqlstr, $id));
       return $modas;
     }
+    /*function obtenerModasPorId($id)
+    {
+        $sqlstr = "SELECT `modas`.`idmoda`,
+        `modas`.`dscmoda`,
+        `modas`.`prcmoda`,
+        `modas`.`ivamoda`,
+        `modas`.`estmoda` FROM `modas` WHERE idmoda=%d";
 
+        $modas = array();
+        $modas = obtenerUnRegistro(sprintf($sqlstr, $id));
+        return $modas;
+    }*/
+    /**
+     * Obtiene una moda por ID
+     *
+     * @param number $id identificador de la moda
+     *
+     * @return void
+     */
+    /**
+     * Agrega nuevo Moda a la tabla
+     *
+     * @param string $dscmoda Descripción de la Moda
+     * @param double $prcmoda Precio de la moda
+     * @param double $ivamoda Impuesto de la moda 0 - 1
+     * @param string $estmoda Estado de la Moda [ACT, INA, PLN, RET]
+     *
+     * @return integer affected rows
+     */
+    function agregarNuevaModa($dscmoda, $prcmoda, $ivamoda, $estmoda) {
+        $insSql = "INSERT INTO modas(dscmoda, prcmoda, ivamoda, estmoda)
+          values ('%s', %f, %f, '%s');";
+          if (ejecutarNonQuery(
+              sprintf(
+                  $insSql,
+                  $dscmoda,
+                  $prcmoda,
+                  $ivamoda,
+                  $estmoda
+              )))
+          {
+            return getLastInserId();
+          } else {
+              return false;
+          }
+    }
+
+    function modificarModa($dscmoda, $prcmoda, $ivamoda, $estmoda, $idmoda)
+    {
+        $updSQL = "UPDATE modas set dscmoda='%s', prcmoda=%f,
+        ivamoda=%f, estmoda='%s' where idmoda=%d;";
+
+        return ejecutarNonQuery(
+            sprintf(
+                $updSQL,
+                $dscmoda,
+                $prcmoda,
+                $ivamoda,
+                $estmoda,
+                $idmoda
+            )
+        );
+    }
+    function eliminarModa($idmoda)
+    {
+        $delSQL = "DELETE FROM modas where idmoda=%d;";
+
+        return ejecutarNonQuery(
+            sprintf(
+                $delSQL,
+                $idmoda
+            )
+        );
+    }
+
+    function obtenerEstados()
+    {
+        return array(
+            array("cod"=>"ACT", "dsc"=>"Activo"),
+            array("cod"=>"INA", "dsc"=>"Inactivo"),
+            array("cod"=>"PLN", "dsc"=>"En Planificación"),
+            array("cod"=>"RET", "dsc"=>"Retirado"),
+            array("cod"=>"SUS", "dsc"=>"Suspendido"),
+            array("cod"=>"DES", "dsc"=>"Descontinuado")
+        );
+    }
 ?>
